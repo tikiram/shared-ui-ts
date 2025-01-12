@@ -25,6 +25,12 @@ export function useViewModel<T extends object>(
   return viewModel;
 }
 
+export function useObservableOfType<T extends Observable<unknown>>(c: new (...args: never) => T): T {
+  const observable = useFindViewModel<T>(c);
+  useTrackObservable(observable)
+  return observable;
+}
+
 // TODO: projection would not be necessary with the smartSubscription strategy
 export function useViewModelProjection<T extends object, B extends object>(
   c: new (...args: never) => T,
