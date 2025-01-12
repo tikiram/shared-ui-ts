@@ -1,0 +1,97 @@
+import RestAuth from "./RestAuth.ts";
+import Credentials from "./Credentials.ts";
+import { UnauthorizedError } from "./RestAuthError.ts";
+import { AuthStatus } from "./AuthStatus.ts";
+import {
+  AlreadyAuthenticatedError,
+  NotAuthenticatedError,
+} from "./AuthError.ts";
+import ReusePromise from "./ReusePromise.ts";
+import { AccessTokenWrapper } from "./AccessTokenWrapper.ts";
+import ObservableImpl from "../Observable/ObservableImpl.ts";
+
+class Auth extends ObservableImpl<AuthStatus> {
+  private accessTokenManager: AccessTokenWrapper = new AccessTokenWrapper({
+    accessToken: "",
+    expiresIn: 0,
+  });
+  private reusePromise: ReusePromise<void> = new ReusePromise();
+
+  constructor(private readonly authRest: RestAuth) {
+    super(AuthStatus.Uninitialized);
+  }
+
+  public initialize = async () => {
+    if (this.getLastNotifiedValue() !== AuthStatus.Uninitialized) {
+      return;
+    }
+
+    try {
+      await this.refreshAccessToken();
+      this.notify(AuthStatus.Authenticated);
+    } catch (error) {
+      if (error instanceof UnauthorizedError) {
+        this.notify(AuthStatus.Anonymous);
+        return;
+      }
+      throw error;
+    }
+  };
+
+  public signUp = async (credentials: Credentials): Promise<void> => {
+    if (this.getLastNotifiedValue() === AuthStatus.Authenticated) {
+      throw new AlreadyAuthenticatedError();
+    }
+    const accessTokenInfo = await this.authRest.signUp(credentials);
+    this.accessTokenManager = new AccessTokenWrapper(accessTokenInfo);
+    this.notify(AuthStatus.Authenticated);
+  };
+
+  public signIn = async (credentials: Credentials): Promise<void> => {
+    if (this.getLastNotifiedValue() === AuthStatus.Authenticated) {
+      throw new AlreadyAuthenticatedError();
+    }
+    const accessTokenInfo = await this.authRest.signIn(credentials);
+    this.accessTokenManager = new AccessTokenWrapper(accessTokenInfo);
+    this.notify(AuthStatus.Authenticated);
+  };
+
+  public signOut = async (): Promise<void> => {
+    await this.authRest.signOut();
+    this.accessTokenManager = new AccessTokenWrapper({
+      accessToken: "",
+      expiresIn: 0,
+    });
+    this.notify(AuthStatus.Anonymous);
+  };
+
+  private refreshAccessToken = async (): Promise<void> => {
+    if (!this.accessTokenManager.isExpired) {
+      console.log("not expired");
+      return;
+    }
+
+    await this.reusePromise.execute(async () => {
+      const accessTokenInfo = await this.authRest.getNewAccessToken();
+      this.accessTokenManager = new AccessTokenWrapper(accessTokenInfo);
+    });
+  };
+
+  public getAccessToken = async (): Promise<string> => {
+    if (this.getLastNotifiedValue() !== AuthStatus.Authenticated) {
+      throw new NotAuthenticatedError();
+    }
+
+    try {
+      await this.refreshAccessToken();
+      return this.accessTokenManager.token;
+    } catch (error) {
+      if (error instanceof UnauthorizedError) {
+        this.notify(AuthStatus.Anonymous);
+      }
+      throw error;
+    }
+  };
+}
+
+export default Auth;

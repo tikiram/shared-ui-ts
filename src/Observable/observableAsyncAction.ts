@@ -1,7 +1,7 @@
 import ObservableImpl from "./ObservableImpl.ts";
 import ActionStatus from "./actionStatus.ts";
 
-class ObservableAsyncAction<A extends any[], T> extends ObservableImpl<
+class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
   ActionStatus<T>
 > {
   constructor(
@@ -40,7 +40,7 @@ class ObservableAsyncAction<A extends any[], T> extends ObservableImpl<
   };
 }
 
-function observableAsyncAction<A extends any[], T>(
+function observableAsyncAction<A extends never[], T>(
   action: (...args: A) => Promise<T>,
   toFirstSuccess: boolean = false,
 ) {
