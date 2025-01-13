@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [react(), dts({
     tsconfigPath: './tsconfig.app.json',
     insertTypesEntry: true,
-    include: ['lib']
+    include: ['src', 'lib']
   })],
   build: {
     copyPublicDir: false,
