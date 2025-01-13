@@ -1,6 +1,6 @@
 import { Stack, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { useViewModel } from "../../utils/Observable/useViewModel.ts";
+import { useViewModel } from "../../Observable/useViewModel.ts";
 import { handleSubmit, sendText } from "../../utils/uiUtils.ts";
 import SignUpViewModel from "./SignUpViewModel.ts";
 import ErrorMessage from "../ErrorMessage.tsx";

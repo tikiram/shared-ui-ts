@@ -1,7 +1,7 @@
 import ObservableImpl from "./ObservableImpl.ts";
 import ActionResult from "./ActionResult.ts";
 
-class ObservableAction<A extends never[], T> extends ObservableImpl<
+class ObservableAction<A extends unknown[], T> extends ObservableImpl<
   ActionResult<T>
 > {
   constructor(
@@ -27,7 +27,7 @@ class ObservableAction<A extends never[], T> extends ObservableImpl<
   };
 }
 
-function observableAction<A extends never[], T>(
+function observableAction<A extends unknown[], T>(
   initialValue: T,
   action: (...args: A) => T,
 ) {

@@ -1,6 +1,6 @@
 import { IconButton, IconButtonProps } from "@mui/material";
 import LinkViewModel from "./LinkViewModel.ts";
-import useViewModel from "../../utils/Observable/useViewModel.ts";
+import { useViewModel } from "../../Observable/useViewModel.ts";
 import { MouseEventHandler } from "react";
 
 type ButtonLinkProps = Omit<

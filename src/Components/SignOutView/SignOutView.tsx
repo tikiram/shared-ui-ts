@@ -1,6 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { Box, Typography } from "@mui/material";
-import { useViewModel } from "../../utils/Observable/useViewModel.ts";
+import { useViewModel } from "../../Observable/useViewModel.ts";
 import SignOutViewModel from "./SignOutViewModel.ts";
 
 function SignOutView() {

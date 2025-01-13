@@ -1,5 +1,5 @@
-import observableAction from "../../utils/Observable/observableAction.ts";
-import observableAsyncAction from "../../utils/Observable/observableAsyncAction.ts";
+import observableAction from "../../Observable/observableAction.ts";
+import observableAsyncAction from "../../Observable/observableAsyncAction.ts";
 import Auth from "../../Auth/Auth.ts";
 
 class SignUpViewModel {
