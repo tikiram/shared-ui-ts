@@ -50,6 +50,7 @@ export default defineConfig({
         "@mui/material",
         "@mui/icons-material",
         "react",
+        "react/jsx-runtime", // TODO: why this is required?
         "react-dom",
       ],
     },
