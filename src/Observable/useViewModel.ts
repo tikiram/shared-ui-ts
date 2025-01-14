@@ -7,7 +7,7 @@ import find from "./find";
 export function useSmartViewModel<T extends object>(
   c: new (...args: never) => T,
 ): [T, symbol] {
-  const viewModel = useFindViewModel<T>(c);
+  const viewModel = useStoreFirstObjectOfType<T>(c);
   const viewToken = useRef(Symbol());
   useTrackObservablesInObject(viewModel, viewToken.current, c.name);
   return [viewModel, viewToken.current];
@@ -16,7 +16,7 @@ export function useSmartViewModel<T extends object>(
 export function useViewModel<T extends object>(
   c: new (...args: never) => T,
 ): T {
-  const viewModel = useFindViewModel<T>(c);
+  const viewModel = useStoreFirstObjectOfType<T>(c);
 
   // We can create another hook useUntrackedViewModel so we can fully control
   // the where the observable is tracked with `useTrackObservable`
@@ -25,9 +25,11 @@ export function useViewModel<T extends object>(
   return viewModel;
 }
 
-export function useObservableOfType<T extends Observable<unknown>>(c: new (...args: never) => T): T {
-  const observable = useFindViewModel<T>(c);
-  useTrackObservable(observable)
+export function useObservableOfType<T extends Observable<unknown>>(
+  c: new (...args: never) => T,
+): T {
+  const observable = useStoreFirstObjectOfType<T>(c);
+  useTrackObservable(observable);
   return observable;
 }
 
@@ -36,13 +38,15 @@ export function useViewModelProjection<T extends object, B extends object>(
   c: new (...args: never) => T,
   projectionFn: (viewModel: T) => B,
 ): B {
-  const viewModel = useFindViewModel<T>(c);
+  const viewModel = useStoreFirstObjectOfType<T>(c);
   const projection = projectionFn(viewModel);
   useTrackObservablesInObject(projection);
   return projection;
 }
 
-function useFindViewModel<T extends object>(c: new (...args: never) => T): T {
+export function useStoreFirstObjectOfType<T extends object>(
+  c: new (...args: never) => T,
+): T {
   const observableStore = useContext(ObservableStoreContext);
 
   if (observableStore === null) {
@@ -52,7 +56,7 @@ function useFindViewModel<T extends object>(c: new (...args: never) => T): T {
   const viewModel = find(observableStore, c);
 
   if (viewModel === undefined) {
-    throw new Error("viewModel not found");
+    throw new Error(`object of type ${c.name} not found in store`);
   }
   return viewModel;
 }

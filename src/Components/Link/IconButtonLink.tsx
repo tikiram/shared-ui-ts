@@ -1,7 +1,7 @@
 import { IconButton, IconButtonProps } from "@mui/material";
-import LinkViewModel from "./LinkViewModel";
-import { useViewModel } from "../../Observable/useViewModel";
+import { useStoreFirstObjectOfType } from "../../Observable/useViewModel";
 import { MouseEventHandler } from "react";
+import SimpleNavigation from "../../Utils/SimpleNavigation";
 
 type ButtonLinkProps = Omit<
   IconButtonProps,
@@ -11,11 +11,11 @@ type ButtonLinkProps = Omit<
 };
 
 function IconButtonLink({ children, href, ...props }: ButtonLinkProps) {
-  const viewModel = useViewModel(LinkViewModel);
+  const simpleNavigation = useStoreFirstObjectOfType(SimpleNavigation);
 
   const onClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault();
-    viewModel.onClick(href ?? "#");
+    simpleNavigation.push(href ?? "#");
   };
 
   return (
