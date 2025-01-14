@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { CircularProgress } from "@mui/material";
 
 import InitializeAuthViewModel from "./InitializeAuthViewModel";
-import { useViewModel } from "../../Observable/useViewModel";
+import { useStoreViewModel } from "../../Observable/useViewModel";
 import ErrorMessage from "../ErrorMessage";
 
 function InitializeAuthView() {
-  const viewModel = useViewModel(InitializeAuthViewModel);
+  const viewModel = useStoreViewModel(InitializeAuthViewModel);
 
   useEffect(() => {
     viewModel.screenInit.exec();

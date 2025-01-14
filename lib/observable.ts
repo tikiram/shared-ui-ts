@@ -8,7 +8,7 @@ import ObservableStoreContext from "../src/Observable/ObservableStoreContext";
 import type Observer from "../src/Observable/Observer";
 import type Subscription from "../src/Observable/Subscription";
 import useTrackObservable from "../src/Observable/useTrackObservable";
-import {useObservableOfType, useSmartViewModel, useViewModel} from "../src/Observable/useViewModel";
+import {useStoreObservableOfType, useSmartViewModel, useStoreViewModel} from "../src/Observable/useViewModel";
 
 
 export {
@@ -24,8 +24,8 @@ export {
   ObservableStoreContext,
   useTrackObservable,
   useSmartViewModel,
-  useViewModel,
-  useObservableOfType
+  useStoreViewModel,
+  useStoreObservableOfType
 }
 
 

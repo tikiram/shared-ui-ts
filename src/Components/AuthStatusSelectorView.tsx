@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useObservableOfType } from "../Observable/useViewModel";
+import { useStoreObservableOfType } from "../Observable/useViewModel";
 import Auth from "../Auth/Auth";
 import { AuthStatus } from "../Auth/AuthStatus";
 
@@ -14,7 +14,7 @@ function AuthStatusViewSelectorView({
   anonymousView,
   authenticatedView,
 }: AuthStatusViewSelectorViewProps) {
-  const auth = useObservableOfType(Auth);
+  const auth = useStoreObservableOfType(Auth);
 
   switch (auth.getLastNotifiedValue()) {
     case AuthStatus.Uninitialized:

@@ -1,10 +1,10 @@
 import { LoadingButton } from "@mui/lab";
 import { Box, Typography } from "@mui/material";
-import { useViewModel } from "../../Observable/useViewModel";
+import { useStoreViewModel } from "../../Observable/useViewModel";
 import SignOutViewModel from "./SignOutViewModel";
 
 function SignOutView() {
-  const viewModel = useViewModel(SignOutViewModel);
+  const viewModel = useStoreViewModel(SignOutViewModel);
 
   return (
     <Box>

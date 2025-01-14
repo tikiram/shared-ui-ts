@@ -13,7 +13,7 @@ export function useSmartViewModel<T extends object>(
   return [viewModel, viewToken.current];
 }
 
-export function useViewModel<T extends object>(
+export function useStoreViewModel<T extends object>(
   c: new (...args: never) => T,
 ): T {
   const viewModel = useStoreFirstObjectOfType<T>(c);
@@ -25,7 +25,7 @@ export function useViewModel<T extends object>(
   return viewModel;
 }
 
-export function useObservableOfType<T extends Observable<unknown>>(
+export function useStoreObservableOfType<T extends Observable<unknown>>(
   c: new (...args: never) => T,
 ): T {
   const observable = useStoreFirstObjectOfType<T>(c);
