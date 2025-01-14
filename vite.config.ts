@@ -19,16 +19,18 @@ export default defineConfig({
     copyPublicDir: false,
     lib: {
       entry: {
-        // @ts-expect-error asdf
+        // @ts-expect-error nodejs var
         main: resolve(__dirname, "lib/main.ts"),
-        // @ts-expect-error asdf
+        // @ts-expect-error nodejs var
         observable: resolve(__dirname, "lib/observable.ts"),
-        // @ts-expect-error asdf
+        // @ts-expect-error nodejs var
         httpclient: resolve(__dirname, "lib/httpclient.ts"),
-        // @ts-expect-error asdf
+        // @ts-expect-error nodejs var
         components: resolve(__dirname, "lib/components.ts"),
-        // @ts-expect-error asdf
+        // @ts-expect-error nodejs var
         auth: resolve(__dirname, "lib/auth.ts"),
+        // @ts-expect-error nodejs var
+        utils: resolve(__dirname, "lib/utils.ts"),
       },
       // The default formats are 'es' and 'umd'
       // - UMD stands for Universal Module Definition

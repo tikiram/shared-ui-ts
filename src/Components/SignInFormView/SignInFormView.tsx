@@ -1,12 +1,12 @@
 import { Stack, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { handleSubmit, sendText } from "../../utils/uiUtils";
+import { handleSubmit, sendText } from "../../Utils/uiUtils";
 import { useViewModel } from "../../Observable/useViewModel";
-import SignInViewModel from "./SignInViewModel";
+import SignInFormViewModel from "./SignInFormViewModel";
 import ErrorMessage from "../ErrorMessage";
 
 function SignInFormView() {
-  const viewModel = useViewModel(SignInViewModel);
+  const viewModel = useViewModel(SignInFormViewModel);
 
   return (
     <Stack

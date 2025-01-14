@@ -1,17 +1,16 @@
-import observableAction from "../../Observable/observableAction";
-import observableAsyncAction from "../../Observable/observableAsyncAction";
 import Auth from "../../Auth/Auth";
+import observableAsyncAction from "../../Observable/observableAsyncAction";
+import { observeTyping } from "../../Observable/utils";
 
-class SignInViewModel {
+class SignInFormViewModel {
   #auth: Auth;
 
   constructor(auth: Auth) {
     this.#auth = auth;
   }
 
-  emailTyped = observableAction("", (text: string) => text);
-
-  passwordTyped = observableAction("", (text: string) => text);
+  emailTyped = observeTyping();
+  passwordTyped = observeTyping();
 
   signInButtonTapped = observableAsyncAction(async () => {
     const email = this.emailTyped.result().trim();
@@ -32,4 +31,4 @@ class SignInViewModel {
   };
 }
 
-export default SignInViewModel;
+export default SignInFormViewModel;
