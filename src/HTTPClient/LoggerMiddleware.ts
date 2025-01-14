@@ -1,4 +1,4 @@
-import Middleware, { NextFn } from "./Middleware.ts";
+import Middleware, { NextFn } from "./Middleware";
 
 class LoggerMiddleware implements Middleware {
   constructor(private readonly enabled: boolean = true) {}

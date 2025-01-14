@@ -1,6 +1,6 @@
 // import { useContext } from "react";
-// import Observable from "./Observable.ts";
-// import useObservable from "./useObservable.ts";
+// import Observable from "./Observable";
+// import useObservable from "./useObservable";
 //
 // function useAppObservable<U>(selector: (appStores: AppState) => Observable<U>) {
 //   const appState = useContext(StateContext);

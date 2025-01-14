@@ -1,7 +1,7 @@
-import ObservableImpl from "./ObservableImpl.ts";
-import ActionStatus from "./actionStatus.ts";
+import ObservableImpl from "./ObservableImpl";
+import ActionStatus from "./ActionStatus";
 
-class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
+export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
   ActionStatus<T>
 > {
   constructor(

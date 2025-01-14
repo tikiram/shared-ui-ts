@@ -1,4 +1,4 @@
-import Observable from "./Observable.ts";
+import Observable from "./Observable";
 import { useEffect, useState } from "react";
 
 function useObservable<T>(

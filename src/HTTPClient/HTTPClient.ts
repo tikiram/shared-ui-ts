@@ -1,8 +1,8 @@
-import Middleware, { NextFn } from "./Middleware.ts";
-import JSONEncoder from "./JSONEncoder.ts";
-import JSONDecoder from "./JSONDecoder.ts";
-import getQueryString, { HTTPQuery } from "./getQueryString.ts";
-import HTTPMethod from "./HTTPMethod.ts";
+import Middleware, { NextFn } from "./Middleware";
+import JSONEncoder from "./JSONEncoder";
+import JSONDecoder from "./JSONDecoder";
+import getQueryString, { HTTPQuery } from "./getQueryString";
+import HTTPMethod from "./HTTPMethod";
 
 interface Options {
   decoder?: JSONDecoder;

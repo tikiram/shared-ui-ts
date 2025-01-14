@@ -1,9 +1,9 @@
 import { Stack, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { useViewModel } from "../../Observable/useViewModel.ts";
-import { handleSubmit, sendText } from "../../utils/uiUtils.ts";
-import SignUpViewModel from "./SignUpViewModel.ts";
-import ErrorMessage from "../ErrorMessage.tsx";
+import { useViewModel } from "../../Observable/useViewModel";
+import { handleSubmit, sendText } from "../../utils/uiUtils";
+import SignUpViewModel from "./SignUpViewModel";
+import ErrorMessage from "../ErrorMessage";
 
 function SignUpFormView() {
   const viewModel = useViewModel(SignUpViewModel);

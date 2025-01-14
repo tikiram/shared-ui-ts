@@ -5,6 +5,28 @@
   "type": "module",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/main.js",
+      "types": "./dist/main.d.ts"
+    },
+    "./observable": {
+      "import": "./dist/observable.js",
+      "types": "./dist/observable.d.ts"
+    },
+    "./httpclient": {
+      "import": "./dist/httpclient.js",
+      "types": "./dist/httpclient.d.ts"
+    },
+    "./components": {
+      "import": "./dist/components.js",
+      "types": "./dist/components.d.ts"
+    },
+    "./auth": {
+      "import": "./dist/auth.js",
+      "types": "./dist/auth.d.ts"
+    }
+  },
   "files": [
     "dist"
   ],
@@ -16,24 +38,26 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
-    "@mui/lab": "^6.0.0-beta.19",
-    "@mui/material": "^6.1.6",
-    "react": "^18.3.1"
-  },
-  "devDependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@eslint/js": "^9.17.0",
+    "@mui/lab": "^6.0.0-beta.19",
+    "@mui/material": "^6.1.6",
     "@fontsource/roboto": "^5.1.0",
     "@mui/icons-material": "^6.1.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
-    "react-dom": "^18.3.1",
+    "prettier": "3.3.3",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5",

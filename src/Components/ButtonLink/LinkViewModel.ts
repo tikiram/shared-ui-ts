@@ -1,4 +1,4 @@
-import SimpleNavigation from "../../utils/SimpleNavigation.ts";
+import SimpleNavigation from "../../utils/SimpleNavigation";
 
 class LinkViewModel {
   #navigation: SimpleNavigation;

@@ -1,4 +1,4 @@
-import observableAction from "./observableAction.ts";
+import observableAction from "./observableAction";
 
 export function observeTyping() {
   return observableAction("", (value: string) => value);

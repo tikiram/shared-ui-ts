@@ -1,8 +1,8 @@
 /*
 
-import { useDirectObservable } from "./useObservable.ts";
-import Observable from "./Observable.ts";
-import Store from "./Store.ts";
+import { useDirectObservable } from "./useObservable";
+import Observable from "./Observable";
+import Store from "./Store";
 
 const a = {
   x: new Store<number>(1),

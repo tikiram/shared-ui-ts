@@ -1,4 +1,4 @@
-import JSONEncoder from "./JSONEncoder.ts";
+import JSONEncoder from "./JSONEncoder";
 
 function decapitalize(text: string): string {
   return text.charAt(0).toLowerCase() + text.substring(1);

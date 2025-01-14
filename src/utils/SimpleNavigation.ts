@@ -1,4 +1,4 @@
-import ObservableImpl from "../Observable/ObservableImpl.ts";
+import ObservableImpl from "../Observable/ObservableImpl";
 
 class SimpleNavigation extends ObservableImpl<string> {
   constructor() {

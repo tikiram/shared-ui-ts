@@ -1,4 +1,4 @@
-import AccessTokenInfo from "./AccessTokenInfo.ts";
+import AccessTokenInfo from "./AccessTokenInfo";
 
 export class AccessTokenWrapper {
   constructor(private readonly info: AccessTokenInfo) {

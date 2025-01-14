@@ -1,8 +1,8 @@
 import { useContext, useRef } from "react";
-import Observable from "./Observable.ts";
-import useTrackObservable from "./useTrackObservable.ts";
-import ObservableStoreContext from "./ObservableStoreContext.ts";
-import find from "./find.ts";
+import Observable from "./Observable";
+import useTrackObservable from "./useTrackObservable";
+import ObservableStoreContext from "./ObservableStoreContext";
+import find from "./find";
 
 export function useSmartViewModel<T extends object>(
   c: new (...args: never) => T,

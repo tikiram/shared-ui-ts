@@ -1,5 +1,5 @@
-import Auth from "../../Auth/Auth.ts";
-import observableAsyncAction from "../../Observable/observableAsyncAction.ts";
+import Auth from "../../Auth/Auth";
+import observableAsyncAction from "../../Observable/observableAsyncAction";
 
 class SignOutViewModel {
   #auth: Auth;

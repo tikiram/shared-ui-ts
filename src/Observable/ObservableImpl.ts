@@ -1,23 +1,23 @@
-import Observable from "./Observable.ts";
-import Observer from "./Observer.ts";
-import Subscription from "./Subscription.ts";
+import Observable from "./Observable";
+import Observer from "./Observer";
+import Subscription from "./Subscription";
 
-interface ObserverData<T> {
+export interface ObserverData<T> {
   nextToken?: symbol;
   observer: Observer<T>;
 }
 
 abstract class ObservableImpl<T> implements Observable<T> {
-  private lastValue: T;
-  private observers: ObserverData<T>[] = [];
-  private justNext: Record<symbol, boolean> = {};
+  #lastValue: T;
+  #observers: ObserverData<T>[] = [];
+  #justNext: Record<symbol, boolean> = {};
 
   protected constructor(initialValue: T) {
-    this.lastValue = initialValue;
+    this.#lastValue = initialValue;
   }
 
   protected notifyWithPreviousValue(action: (previous: T) => T) {
-    const newValue = action(this.lastValue);
+    const newValue = action(this.#lastValue);
     this.notifyObservers(newValue);
   }
 
@@ -26,34 +26,34 @@ abstract class ObservableImpl<T> implements Observable<T> {
   }
 
   private notifyObservers(value: T): void {
-    this.lastValue = value;
+    this.#lastValue = value;
 
-    this.observers
-      .filter((d) => (d.nextToken ? this.justNext[d.nextToken] : true))
+    this.#observers
+      .filter((d) => (d.nextToken ? this.#justNext[d.nextToken] : true))
       .forEach((d) => d.observer.next(value));
 
-    this.observers
+    this.#observers
       .filter((d) => d.nextToken)
       .forEach((d) => {
-        this.justNext[d.nextToken!] = false;
+        this.#justNext[d.nextToken!] = false;
       });
   }
 
   getLastNotifiedValue(nextToken?: symbol): T {
     if (nextToken) {
-      this.justNext[nextToken] = true;
+      this.#justNext[nextToken] = true;
     }
 
-    return this.lastValue;
+    return this.#lastValue;
   }
 
   subscribe(observer: Observer<T>, nextToken?: symbol): Subscription {
-    this.observers.push({
+    this.#observers.push({
       nextToken,
       observer,
     });
 
-    const observers = this.observers;
+    const observers = this.#observers;
 
     return {
       unsubscribe() {

@@ -1,9 +1,9 @@
-import RestAuth from "./RestAuth.ts";
-import NiceJSONDecoder from "../HTTPClient/NiceJSONDecoder.ts";
-import NiceJSONEncoder from "../HTTPClient/NiceJSONEncoder.ts";
-import ErrorHandlerMiddleware from "../HTTPClient/ErrorHandlerMiddleware.ts";
-import HTTPClient from "../HTTPClient/HTTPClient.ts";
-import Auth from "./Auth.ts";
+import RestAuth from "./RestAuth";
+import NiceJSONDecoder from "../HTTPClient/NiceJSONDecoder";
+import NiceJSONEncoder from "../HTTPClient/NiceJSONEncoder";
+import ErrorHandlerMiddleware from "../HTTPClient/ErrorHandlerMiddleware";
+import HTTPClient from "../HTTPClient/HTTPClient";
+import Auth from "./Auth";
 
 function buildAuth(): Auth {
   const base = import.meta.env.VITE_AUTH_API_URL;

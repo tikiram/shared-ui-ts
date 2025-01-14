@@ -1,9 +1,9 @@
-import HTTPClient from "../HTTPClient/HTTPClient.ts";
-import HTTPMethod from "../HTTPClient/HTTPMethod.ts";
-import { UnauthorizedError } from "./RestAuthError.ts";
-import { BadResponseError } from "../HTTPClient/ErrorHandlerMiddleware.ts";
-import AccessTokenInfo from "./AccessTokenInfo.ts";
-import Credentials from "./Credentials.ts";
+import HTTPClient from "../HTTPClient/HTTPClient";
+import HTTPMethod from "../HTTPClient/HTTPMethod";
+import { UnauthorizedError } from "./RestAuthError";
+import { BadResponseError } from "../HTTPClient/ErrorHandlerMiddleware";
+import AccessTokenInfo from "./AccessTokenInfo";
+import Credentials from "./Credentials";
 
 const SIGN_UP_PATH = "/auth/register";
 const TOKEN_PATH = "/auth/token";

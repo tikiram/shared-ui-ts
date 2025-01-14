@@ -1,4 +1,4 @@
-import Middleware, { NextFn } from "./Middleware.ts";
+import Middleware, { NextFn } from "./Middleware";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

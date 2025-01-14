@@ -1,14 +1,17 @@
-import ObservableImpl from "./ObservableImpl.ts";
-import ActionResult from "./ActionResult.ts";
+import ObservableImpl from "./ObservableImpl";
+import ActionResult from "./ActionResult";
 
-class ObservableAction<A extends unknown[], T> extends ObservableImpl<
+export class ObservableAction<A extends unknown[], T> extends ObservableImpl<
   ActionResult<T>
 > {
+  readonly #action: (...args: A) => T;
+
   constructor(
     initialValue: T,
-    private readonly action: (...args: A) => T,
+    action: (...args: A) => T,
   ) {
     super({ result: initialValue });
+    this.#action = action;
   }
 
   public result(nextToken?: symbol): T  {
@@ -17,7 +20,7 @@ class ObservableAction<A extends unknown[], T> extends ObservableImpl<
 
   exec = (...args: A) => {
     try {
-      const result = this.action(...args);
+      const result = this.#action(...args);
       this.notify({ result });
     } catch (e) {
       // TODO: probably `result` should be set as undefined

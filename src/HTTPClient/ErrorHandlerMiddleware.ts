@@ -1,5 +1,5 @@
-import Middleware, { NextFn } from "./Middleware.ts";
-import HTTPClientError from "./HTTPClientError.ts";
+import Middleware, { NextFn } from "./Middleware";
+import HTTPClientError from "./HTTPClientError";
 
 export class BadResponseError extends HTTPClientError {
   readonly request: Request;

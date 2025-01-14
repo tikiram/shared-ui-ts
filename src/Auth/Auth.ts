@@ -1,14 +1,14 @@
-import RestAuth from "./RestAuth.ts";
-import Credentials from "./Credentials.ts";
-import { UnauthorizedError } from "./RestAuthError.ts";
-import { AuthStatus } from "./AuthStatus.ts";
+import RestAuth from "./RestAuth";
+import Credentials from "./Credentials";
+import { UnauthorizedError } from "./RestAuthError";
+import { AuthStatus } from "./AuthStatus";
 import {
   AlreadyAuthenticatedError,
   NotAuthenticatedError,
-} from "./AuthError.ts";
-import ReusePromise from "./ReusePromise.ts";
-import { AccessTokenWrapper } from "./AccessTokenWrapper.ts";
-import ObservableImpl from "../Observable/ObservableImpl.ts";
+} from "./AuthError";
+import ReusePromise from "./ReusePromise";
+import { AccessTokenWrapper } from "./AccessTokenWrapper";
+import ObservableImpl from "../Observable/ObservableImpl";
 
 class Auth extends ObservableImpl<AuthStatus> {
   private accessTokenManager: AccessTokenWrapper = new AccessTokenWrapper({

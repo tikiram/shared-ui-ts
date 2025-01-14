@@ -1,5 +1,5 @@
-import Auth from "./Auth.ts";
-import Middleware, { NextFn } from "../HTTPClient/Middleware.ts";
+import Auth from "./Auth";
+import Middleware, { NextFn } from "../HTTPClient/Middleware";
 
 class AuthMiddleware implements Middleware {
   #auth: Auth;

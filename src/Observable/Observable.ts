@@ -1,5 +1,5 @@
-import Observer from "./Observer.ts";
-import Subscription from "./Subscription.ts";
+import Observer from "./Observer";
+import Subscription from "./Subscription";
 
 interface Observable<T> {
   getLastNotifiedValue(observerToken?: symbol): T;
