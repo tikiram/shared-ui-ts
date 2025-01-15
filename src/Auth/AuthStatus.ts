@@ -1,5 +1,7 @@
-export enum AuthStatus {
+enum AuthStatus {
   Uninitialized,
   Anonymous,
   Authenticated,
 }
+
+export default AuthStatus;

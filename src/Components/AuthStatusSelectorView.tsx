@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useStoreObservableOfType } from "../Observable/useViewModel";
 import Auth from "../Auth/Auth";
-import { AuthStatus } from "../Auth/AuthStatus";
+import AuthStatus from "../Auth/AuthStatus";
 
 interface AuthStatusViewSelectorViewProps {
   uninitializedView: ReactNode;

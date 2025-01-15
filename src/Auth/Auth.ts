@@ -1,7 +1,7 @@
 import RestAuth from "./RestAuth";
 import Credentials from "./Credentials";
 import { UnauthorizedError } from "./RestAuthError";
-import { AuthStatus } from "./AuthStatus";
+import AuthStatus from "./AuthStatus";
 import {
   AlreadyAuthenticatedError,
   NotAuthenticatedError,
