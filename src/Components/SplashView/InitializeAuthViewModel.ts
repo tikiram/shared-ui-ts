@@ -1,5 +1,5 @@
 import Auth from "../../Auth/Auth";
-import observableAsyncAction from "../../Observable/observableAsyncAction";
+import observeAsyncAction from "../../Observable/observeAsyncAction";
 
 class InitializeAuthViewModel {
   #auth: Auth;
@@ -8,7 +8,7 @@ class InitializeAuthViewModel {
     this.#auth = auth;
   }
 
-  screenInit = observableAsyncAction(async () => {
+  screenInit = observeAsyncAction(async () => {
     await this.#auth.initialize();
   }, true);
 }

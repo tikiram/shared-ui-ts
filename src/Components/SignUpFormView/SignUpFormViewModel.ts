@@ -1,5 +1,5 @@
 import Auth from "../../Auth/Auth";
-import observableAsyncAction from "../../Observable/observableAsyncAction";
+import observeAsyncAction from "../../Observable/observeAsyncAction";
 import { observeTyping } from "../../Observable/utils";
 
 class SignUpFormViewModel {
@@ -13,7 +13,7 @@ class SignUpFormViewModel {
   passwordTyped = observeTyping();
   passwordVerificationTyped = observeTyping();
 
-  signUpButtonTapped = observableAsyncAction(async () => {
+  signUpButtonTapped = observeAsyncAction(async () => {
     const email = this.emailTyped.result().trim();
     const password = this.passwordTyped.result();
     const passwordVerification = this.passwordTyped.result();

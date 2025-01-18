@@ -2,7 +2,7 @@ import type ActionResult from "../src/Observable/ActionResult";
 import type ActionStatus from "../src/Observable/ActionStatus";
 import type Observable from "../src/Observable/Observable";
 import observeAction from "../src/Observable/observableAction";
-import observableAsyncAction from "../src/Observable/observableAsyncAction";
+import observeAsyncAction from "../src/Observable/observeAsyncAction";
 import ObservableImpl from "../src/Observable/ObservableImpl";
 import ObservableStoreContext from "../src/Observable/ObservableStoreContext";
 import type Observer from "../src/Observable/Observer";
@@ -20,7 +20,7 @@ export {
   ActionStatus,
   Observable,
   observeAction,
-  observableAsyncAction,
+  observeAsyncAction,
   ObservableImpl,
   Observer,
   Subscription,

@@ -1,5 +1,5 @@
 import Auth from "../../Auth/Auth";
-import observableAsyncAction from "../../Observable/observableAsyncAction";
+import observeAsyncAction from "../../Observable/observeAsyncAction";
 
 class SignOutViewModel {
   #auth: Auth;
@@ -8,7 +8,7 @@ class SignOutViewModel {
     this.#auth = auth;
   }
 
-  logOutTapped = observableAsyncAction(async () => {
+  logOutTapped = observeAsyncAction(async () => {
     await this.#auth.signOut();
   });
 }

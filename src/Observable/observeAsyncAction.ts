@@ -40,11 +40,11 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
   };
 }
 
-function observableAsyncAction<A extends never[], T>(
+function observeAsyncAction<A extends never[], T>(
   action: (...args: A) => Promise<T>,
   toFirstSuccess: boolean = false,
 ) {
   return new ObservableAsyncAction<A, T>(action, toFirstSuccess);
 }
 
-export default observableAsyncAction;
+export default observeAsyncAction;
