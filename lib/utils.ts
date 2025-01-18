@@ -1,3 +1,4 @@
 import SimpleNavigation from "../src/Utils/SimpleNavigation";
+import { handleSubmit, sendText } from "../src/Utils/uiUtils";
 
-export { SimpleNavigation };
+export { SimpleNavigation, sendText, handleSubmit };

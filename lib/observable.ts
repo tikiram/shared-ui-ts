@@ -14,6 +14,7 @@ import {
   useStoreViewModel,
   useStoreFirstObjectOfType,
 } from "../src/Observable/useViewModel";
+import { observeTyping } from "../src/Observable/utils";
 
 export {
   ActionResult,
@@ -21,6 +22,7 @@ export {
   Observable,
   observeAction,
   observeAsyncAction,
+  observeTyping,
   ObservableImpl,
   Observer,
   Subscription,
