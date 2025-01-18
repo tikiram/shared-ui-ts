@@ -7,6 +7,7 @@ import SignUpFormView from "../src/Components/SignUpFormView/SignUpFormView";
 import SignUpFormViewModel from "../src/Components/SignUpFormView/SignUpFormViewModel";
 import ButtonLink from "../src/Components/Link/ButtonLink";
 import IconButtonLink from "../src/Components/Link/IconButtonLink";
+import ErrorMessage from "../src/Components/ErrorMessage";
 
 export {
   AuthStatusViewSelectorView,
@@ -18,4 +19,5 @@ export {
   SignUpFormViewModel,
   ButtonLink,
   IconButtonLink,
+  ErrorMessage,
 };
