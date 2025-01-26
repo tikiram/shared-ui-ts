@@ -1,8 +1,8 @@
 import ObservableImpl from "../Observable/ObservableImpl";
 
-function matchTemplate(template: string, value: string) {
+export function matchTemplate(template: string, value: string) {
   const regexString = template.replace(/:\w+/g, "([\\w-]+)");
-  const regex = new RegExp(`^${regexString}`);
+  const regex = new RegExp(`^${regexString}$`);
   return value.match(regex);
 }
 
