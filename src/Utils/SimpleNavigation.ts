@@ -1,5 +1,11 @@
 import ObservableImpl from "../Observable/ObservableImpl";
 
+function matchTemplate(template: string, value: string) {
+  const regexString = template.replace(/:\w+/g, "([\\w-]+)");
+  const regex = new RegExp(`^${regexString}`);
+  return value.match(regex);
+}
+
 class SimpleNavigation extends ObservableImpl<string> {
   constructor() {
     super(window.location.pathname);
@@ -12,6 +18,11 @@ class SimpleNavigation extends ObservableImpl<string> {
   push = (path: string) => {
     history.pushState({}, "", path);
     this.notify(path);
+  };
+
+  isUrl = (template: string): boolean => {
+    const matchResult = matchTemplate(template, this.getLastNotifiedValue());
+    return matchResult !== null;
   };
 }
 
