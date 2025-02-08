@@ -6,11 +6,13 @@ import find from "./find";
 
 export function useSmartViewModel<T extends object>(
   c: new (...args: never) => T,
+  viewToken?: never
 ): [T, symbol] {
   const viewModel = useStoreFirstObjectOfType<T>(c);
-  const viewToken = useRef(Symbol());
-  useTrackObservablesInObject(viewModel, viewToken.current, c.name);
-  return [viewModel, viewToken.current];
+  // TODO: refactor viewToken
+  const internalViewToken = useRef(Symbol());
+  useTrackObservablesInObject(viewModel, viewToken || internalViewToken.current, c.name);
+  return [viewModel, viewToken || internalViewToken.current];
 }
 
 export function useStoreViewModel<T extends object>(
