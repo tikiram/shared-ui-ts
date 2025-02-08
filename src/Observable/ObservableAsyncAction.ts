@@ -16,6 +16,10 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
     super({ type: IDLE_TYPE });
   }
 
+  isIdle = (viewToken?: symbol): boolean => {
+    return this.getLastNotifiedValue(viewToken).type === IDLE_TYPE;
+  };
+
   isLoading = (viewToken?: symbol): boolean => {
     return this.getLastNotifiedValue(viewToken).type === LOADING_TYPE;
   };
