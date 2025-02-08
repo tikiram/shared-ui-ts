@@ -14,10 +14,10 @@ function InitializeAuthView() {
 
   return (
     <div>
-      {viewModel.screenInit.isLoading && <CircularProgress />}
-      {viewModel.screenInit.error && (
+      {viewModel.screenInit.isLoading() && <CircularProgress />}
+      {viewModel.screenInit.error() && (
         <ErrorMessage
-          error={viewModel.screenInit.error}
+          error={viewModel.screenInit.error()}
           retryAction={viewModel.screenInit.exec}
         />
       )}

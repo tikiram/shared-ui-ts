@@ -1,44 +1,4 @@
-import ObservableImpl from "./ObservableImpl";
-import ActionStatus from "./ActionStatus";
-
-export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
-  ActionStatus<T>
-> {
-  constructor(
-    private readonly action: (...args: A) => Promise<T>,
-    private readonly toFirstSuccess: boolean = false,
-  ) {
-    super({ type: "idle" });
-  }
-
-  public get isLoading(): boolean {
-    return this.getLastNotifiedValue().type === "loading";
-  }
-
-  public get error(): Error | undefined {
-    return this.getLastNotifiedValue().error;
-  }
-
-  exec = (...args: A) => {
-    if (this.isLoading) {
-      return;
-    }
-
-    if (this.toFirstSuccess && this.getLastNotifiedValue().type === "success") {
-      return;
-    }
-
-    (async () => {
-      this.notify({ type: "loading" });
-      try {
-        const result = await this.action(...args);
-        this.notify({ type: "success", result: result });
-      } catch (error) {
-        this.notify({ type: "error", error: error as Error });
-      }
-    })();
-  };
-}
+import ObservableAsyncAction from "./ObservableAsyncAction";
 
 function observeAsyncAction<A extends never[], T>(
   action: (...args: A) => Promise<T>,

@@ -19,7 +19,7 @@ function SignUpFormView() {
         variant="outlined"
         value={viewModel.emailTyped.result()}
         onChange={sendText(viewModel.emailTyped.exec)}
-        disabled={viewModel.signUpButtonTapped.isLoading}
+        disabled={viewModel.signUpButtonTapped.isLoading()}
       />
       <TextField
         label="Password"
@@ -27,7 +27,7 @@ function SignUpFormView() {
         type="password"
         value={viewModel.passwordTyped.result()}
         onChange={sendText(viewModel.passwordTyped.exec)}
-        disabled={viewModel.signUpButtonTapped.isLoading}
+        disabled={viewModel.signUpButtonTapped.isLoading()}
       />
       <TextField
         label="Repite tu password"
@@ -35,16 +35,16 @@ function SignUpFormView() {
         type="password"
         value={viewModel.passwordVerificationTyped.result()}
         onChange={sendText(viewModel.passwordVerificationTyped.exec)}
-        disabled={viewModel.signUpButtonTapped.isLoading}
+        disabled={viewModel.signUpButtonTapped.isLoading()}
       />
       <LoadingButton
-        loading={viewModel.signUpButtonTapped.isLoading}
+        loading={viewModel.signUpButtonTapped.isLoading()}
         type="submit"
         variant="contained"
       >
         Registrar
       </LoadingButton>
-      <ErrorMessage error={viewModel.signUpButtonTapped.error} />
+      <ErrorMessage error={viewModel.signUpButtonTapped.error()} />
     </Stack>
   );
 }

@@ -20,7 +20,7 @@ function SignInFormView() {
         variant="outlined"
         value={viewModel.emailTyped.result()}
         onChange={sendText(viewModel.emailTyped.exec)}
-        disabled={viewModel.signInButtonTapped.isLoading}
+        disabled={viewModel.signInButtonTapped.isLoading()}
       />
       <TextField
         label="Password"
@@ -28,16 +28,16 @@ function SignInFormView() {
         type="password"
         value={viewModel.passwordTyped.result()}
         onChange={sendText(viewModel.passwordTyped.exec)}
-        disabled={viewModel.signInButtonTapped.isLoading}
+        disabled={viewModel.signInButtonTapped.isLoading()}
       />
       <LoadingButton
-        loading={viewModel.signInButtonTapped.isLoading}
+        loading={viewModel.signInButtonTapped.isLoading()}
         type="submit"
         variant="contained"
       >
         Login
       </LoadingButton>
-      <ErrorMessage error={viewModel.signInButtonTapped.error} />
+      <ErrorMessage error={viewModel.signInButtonTapped.error()} />
     </Stack>
   );
 }

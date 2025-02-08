@@ -9,13 +9,13 @@ function SignOutView() {
   return (
     <Box>
       <LoadingButton
-        loading={viewModel.logOutTapped.isLoading}
+        loading={viewModel.logOutTapped.isLoading()}
         onClick={viewModel.logOutTapped.exec}
       >
         Log Out
       </LoadingButton>
       <Typography variant="body2" color="error">
-        {viewModel.logOutTapped.error && String(viewModel.logOutTapped.error)}
+        {viewModel.logOutTapped.error && String(viewModel.logOutTapped.error())}
       </Typography>
     </Box>
   );
