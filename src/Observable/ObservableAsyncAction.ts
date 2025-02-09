@@ -24,6 +24,10 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
     return this.getLastNotifiedValue(viewToken).type === LOADING_TYPE;
   };
 
+  isSuccess = (viewToken?: symbol): boolean => {
+    return this.getLastNotifiedValue(viewToken).type === SUCCESS_TYPE;
+  };
+
   result = (viewToken?: symbol): T | undefined => {
     return this.getLastNotifiedValue(viewToken).result;
   };
