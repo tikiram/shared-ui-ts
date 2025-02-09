@@ -13,6 +13,7 @@ import {
   useSmartViewModel,
   useStoreViewModel,
   useStoreFirstObjectOfType,
+  useStoreViewModelProjection,
 } from "../src/Observable/useViewModel";
 import { observeTyping } from "../src/Observable/utils";
 
@@ -30,6 +31,7 @@ export {
   ObservableStoreContext,
   useTrackObservable,
   useSmartViewModel,
+  useStoreViewModelProjection,
   useStoreViewModel,
   useStoreObservableOfType,
   useStoreFirstObjectOfType,

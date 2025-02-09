@@ -36,7 +36,7 @@ export function useStoreObservableOfType<T extends Observable<unknown>>(
 }
 
 // TODO: projection would not be necessary with the smartSubscription strategy
-export function useViewModelProjection<T extends object, B extends object>(
+export function useStoreViewModelProjection<T extends object, B extends object>(
   c: new (...args: never) => T,
   projectionFn: (viewModel: T) => B,
 ): B {
