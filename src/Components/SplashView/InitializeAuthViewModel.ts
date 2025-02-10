@@ -10,7 +10,7 @@ class InitializeAuthViewModel {
 
   screenInit = observeAsyncAction(async () => {
     await this.#auth.initialize();
-  }, true);
+  }, { onlyToFirstSuccess: true});
 }
 
 export default InitializeAuthViewModel;
