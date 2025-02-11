@@ -120,7 +120,7 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
       this.keyFn &&
       this.#lastExecutionKey === this.keyFn()
     ) {
-      return;
+      return true;
     }
 
     if (
