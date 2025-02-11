@@ -12,11 +12,13 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
 > {
   #lastExecutionTime: number = 0;
   #lastExecutionArgs?: A;
+  #lastExecutionKey?: string;
 
   constructor(
     private readonly action: (...args: A) => Promise<T>,
     private readonly onlyToFirstSuccess: boolean = false,
     private readonly mode: ObservableAsyncActionMode = "ONE_AT_A_TIME",
+    private readonly keyFn?: () => string,
     private readonly justLastCallSkipWhenInProgressFn?: (
       previousArgs: A,
       currentArgs: A,
@@ -93,6 +95,7 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
     const currentExecutionTime = Date.now();
     this.#lastExecutionTime = currentExecutionTime;
     this.#lastExecutionArgs = args;
+    this.#lastExecutionKey = this.keyFn?.();
 
     (async () => {
       if (!this.isLoading()) {
@@ -112,6 +115,14 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
   };
 
   #shouldSkipInvocation = (...args: A) => {
+    if (
+      this.isLoading() &&
+      this.keyFn &&
+      this.#lastExecutionKey === this.keyFn()
+    ) {
+      return;
+    }
+
     if (
       this.justLastCallSkipWhenInProgressFn &&
       this.#lastExecutionArgs &&

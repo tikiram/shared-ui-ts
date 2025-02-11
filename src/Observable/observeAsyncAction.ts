@@ -4,6 +4,7 @@ import ObservableAsyncActionMode from "./ObservableAsyncActionMode";
 interface Options<A> {
   onlyToFirstSuccess?: boolean;
   mode?: ObservableAsyncActionMode;
+  keyFn?: () => string;
   justLastCallSkipWhenInProgressFn?: (
     previousArgs: A,
     currentArgs: A,
@@ -16,13 +17,14 @@ function observeAsyncAction<A extends never[], T>(
   action: (...args: A) => Promise<T>,
   options?: Options<A>,
 ) {
-  const { onlyToFirstSuccess, mode, justLastCallSkipWhenInProgressFn } =
+  const { onlyToFirstSuccess, mode, keyFn, justLastCallSkipWhenInProgressFn } =
     options || {};
 
   return new ObservableAsyncAction<A, T>(
     action,
     onlyToFirstSuccess,
     mode,
+    keyFn,
     justLastCallSkipWhenInProgressFn,
   );
 }
