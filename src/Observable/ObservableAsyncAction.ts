@@ -11,11 +11,16 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
   ActionStatus<T>
 > {
   #lastExecutionTime: number = 0;
+  #lastExecutionArgs?: A;
 
   constructor(
     private readonly action: (...args: A) => Promise<T>,
     private readonly onlyToFirstSuccess: boolean = false,
     private readonly mode: ObservableAsyncActionMode = "ONE_AT_A_TIME",
+    private readonly justLastCallSkipWhenInProgressFn?: (
+      previousArgs: A,
+      currentArgs: A,
+    ) => boolean,
   ) {
     super({ type: IDLE_TYPE });
   }
@@ -30,6 +35,10 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
 
   isSuccess = (viewToken?: symbol): boolean => {
     return this.getLastNotifiedValue(viewToken).type === SUCCESS_TYPE;
+  };
+
+  isError = (viewToken?: symbol): boolean => {
+    return this.getLastNotifiedValue(viewToken).type === ERROR_TYPE;
   };
 
   result = (viewToken?: symbol): T | undefined => {
@@ -77,13 +86,19 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
   };
 
   #lastOne = (...args: A) => {
+    if (this.#shouldSkipInvocation(...args)) {
+      return;
+    }
+
+    const currentExecutionTime = Date.now();
+    this.#lastExecutionTime = currentExecutionTime;
+    this.#lastExecutionArgs = args;
+
     (async () => {
       if (!this.isLoading()) {
         this.notify({ type: LOADING_TYPE });
       }
       try {
-        const currentExecutionTime = Date.now();
-        this.#lastExecutionTime = currentExecutionTime;
         const result = await this.action(...args);
 
         if (this.#lastExecutionTime !== currentExecutionTime) {
@@ -94,6 +109,19 @@ export class ObservableAsyncAction<A extends never[], T> extends ObservableImpl<
         this.notify({ type: ERROR_TYPE, error: error as Error });
       }
     })();
+  };
+
+  #shouldSkipInvocation = (...args: A) => {
+    if (
+      this.justLastCallSkipWhenInProgressFn &&
+      this.#lastExecutionArgs &&
+      this.isLoading()
+    ) {
+      return this.justLastCallSkipWhenInProgressFn(
+        this.#lastExecutionArgs,
+        args,
+      );
+    }
   };
 }
 
