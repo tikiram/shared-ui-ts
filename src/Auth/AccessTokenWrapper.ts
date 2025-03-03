@@ -1,15 +1,19 @@
 import AccessTokenInfo from "./AccessTokenInfo";
 
 export class AccessTokenWrapper {
-  constructor(private readonly info: AccessTokenInfo) {
+  #info: AccessTokenInfo;
+  #expirationDate: Date;
+
+  constructor(info: AccessTokenInfo) {
+    this.#info = info;
+    this.#expirationDate = new Date(Date.now() + info.expiresIn * 1000);
   }
 
   get isExpired(): boolean {
-    const expirationDate = new Date(Date.now() + this.info.expiresIn * 1000);
-    return new Date() >= expirationDate;
+    return new Date() >= this.#expirationDate;
   }
 
   get token(): string {
-    return this.info.accessToken;
+    return this.#info.accessToken;
   }
 }
