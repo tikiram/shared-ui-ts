@@ -5,3 +5,9 @@ export class UnauthorizedError extends RestAuthError {
     super(reason);
   }
 }
+
+export class MissingRefreshTokenError extends RestAuthError {
+  constructor(reason: string) {
+    super(reason);
+  }
+}

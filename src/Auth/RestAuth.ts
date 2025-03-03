@@ -1,6 +1,6 @@
 import HTTPClient from "../HTTPClient/HTTPClient";
 import HTTPMethod from "../HTTPClient/HTTPMethod";
-import { UnauthorizedError } from "./RestAuthError";
+import { MissingRefreshTokenError, UnauthorizedError } from "./RestAuthError";
 import { BadResponseError } from "../HTTPClient/ErrorHandlerMiddleware";
 import AccessTokenInfo from "./AccessTokenInfo";
 import Credentials from "./Credentials";
@@ -23,6 +23,14 @@ class RestAuth {
       if (error instanceof BadResponseError && error.response.status === 401) {
         const reason = await tryGetReason(error.response);
         throw new UnauthorizedError(reason);
+      } else if (
+        error instanceof BadResponseError &&
+        error.response.status === 400
+      ) {
+        const reason = await tryGetReason(error.response);
+        if (reason === "MISSING_REFRESH_TOKEN") {
+          throw new MissingRefreshTokenError(reason);
+        }
       }
       throw error;
     }
@@ -59,7 +67,7 @@ async function tryGetReason(response: Response): Promise<string> {
     const content = await response.clone().json();
     return content.reason;
   } catch {
-    return await response.text();
+    return await response.clone().text();
   }
 }
 
