@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
 import { Button, ButtonProps } from "@mui/material";
-import { useStoreFirstObjectOfType } from "../../Observable/useViewModel";
+import { useStoreFirstObjectOfType } from "../../Observable/React/useViewModel";
 import SimpleNavigation from "../../Utils/SimpleNavigation";
 
 type ButtonLinkProps = Omit<ButtonProps, "component" | "onClick" | "role">;

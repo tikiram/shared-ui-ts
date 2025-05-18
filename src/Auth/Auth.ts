@@ -1,18 +1,17 @@
-import RestAuth from "./RestAuth";
-import Credentials from "./Credentials";
-import { MissingRefreshTokenError, UnauthorizedError } from "./RestAuthError";
+import RestAuth from "./Rest/RestAuth";
+import Credentials from "./Rest/Credentials";
+import { MissingRefreshTokenError } from "./Rest/RestAuthError";
 import AuthStatus from "./AuthStatus";
 import { AlreadyAuthenticatedError, NotAuthenticatedError } from "./AuthError";
-import ReusePromise from "./ReusePromise";
-import { AccessTokenWrapper } from "./AccessTokenWrapper";
-import ObservableImpl from "../Observable/ObservableImpl";
+import ReusePromise from "./Utils/ReusePromise";
+import { AccessTokenManager } from "./AccessTokenWrapper";
+import ObservableImpl from "../Observable/Core/ObservableImpl";
 
 // TODO: Add tests to this class
 class Auth extends ObservableImpl<AuthStatus> {
-  private accessTokenManager: AccessTokenWrapper = new AccessTokenWrapper({
-    accessToken: "",
-    expiresIn: 0,
-  });
+
+  private accessTokenManager: AccessTokenManager = new AccessTokenManager();
+
   private reusePromise: ReusePromise<void> = new ReusePromise();
 
   constructor(private readonly authRest: RestAuth) {
@@ -44,8 +43,8 @@ class Auth extends ObservableImpl<AuthStatus> {
     if (this.getLastNotifiedValue() === AuthStatus.Authenticated) {
       throw new AlreadyAuthenticatedError();
     }
-    const accessTokenInfo = await this.authRest.signUp(credentials);
-    this.accessTokenManager = new AccessTokenWrapper(accessTokenInfo);
+    const tokens = await this.authRest.signUp(credentials);
+    this.accessTokenManager = new AccessTokenManager(tokens);
     this.notify(AuthStatus.Authenticated);
   };
 
@@ -53,17 +52,14 @@ class Auth extends ObservableImpl<AuthStatus> {
     if (this.getLastNotifiedValue() === AuthStatus.Authenticated) {
       throw new AlreadyAuthenticatedError();
     }
-    const accessTokenInfo = await this.authRest.signIn(credentials);
-    this.accessTokenManager = new AccessTokenWrapper(accessTokenInfo);
+    const tokens = await this.authRest.signIn(credentials);
+    this.accessTokenManager = new AccessTokenManager(tokens);
     this.notify(AuthStatus.Authenticated);
   };
 
   public signOut = async (): Promise<void> => {
     await this.authRest.signOut();
-    this.accessTokenManager = new AccessTokenWrapper({
-      accessToken: "",
-      expiresIn: 0,
-    });
+    this.accessTokenManager = new AccessTokenManager();
     this.notify(AuthStatus.Anonymous);
   };
 
@@ -72,15 +68,8 @@ class Auth extends ObservableImpl<AuthStatus> {
       throw new NotAuthenticatedError();
     }
 
-    try {
-      await this.refreshAccessToken();
-      return this.accessTokenManager.token;
-    } catch (error) {
-      if (error instanceof UnauthorizedError) {
-        this.notify(AuthStatus.Anonymous);
-      }
-      throw error;
-    }
+    await this.refreshAccessToken();
+    return this.accessTokenManager.token;
   };
 
   private refreshAccessToken = async (): Promise<void> => {
@@ -90,8 +79,8 @@ class Auth extends ObservableImpl<AuthStatus> {
     }
 
     await this.reusePromise.execute(async () => {
-      const accessTokenInfo = await this.authRest.getNewAccessToken();
-      this.accessTokenManager = new AccessTokenWrapper(accessTokenInfo);
+      const tokens = await this.authRest.getNewAccessToken();
+      this.accessTokenManager = new AccessTokenManager(tokens);
     });
   };
 }

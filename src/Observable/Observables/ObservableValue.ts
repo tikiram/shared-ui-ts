@@ -1,7 +1,6 @@
-import ObservableImpl from "./ObservableImpl";
+import ObservableImpl from "../Core/ObservableImpl";
 
-// TODO: find a better name
-class Store<T> extends ObservableImpl<T> {
+class ObservableValue<T> extends ObservableImpl<T> {
   constructor(initialValue: T) {
     super(initialValue);
   }
@@ -15,4 +14,4 @@ class Store<T> extends ObservableImpl<T> {
   }
 }
 
-export default Store;
+export default ObservableValue;

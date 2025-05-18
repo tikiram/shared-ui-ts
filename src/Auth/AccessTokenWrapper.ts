@@ -1,12 +1,18 @@
-import AccessTokenInfo from "./AccessTokenInfo";
+import Tokens from "./Rest/Tokens";
 
-export class AccessTokenWrapper {
-  #info: AccessTokenInfo;
+export class AccessTokenManager {
+  #accessToken: string;
   #expirationDate: Date;
 
-  constructor(info: AccessTokenInfo) {
-    this.#info = info;
-    this.#expirationDate = new Date(Date.now() + info.expiresIn * 1000);
+  constructor(info?: Tokens) {
+    if (info) {
+      this.#accessToken = info.accessToken;
+      this.#expirationDate = new Date(Date.now() + info.expiresIn * 1000);
+    }
+    else {
+      this.#accessToken = "";
+      this.#expirationDate = new Date();
+    }
   }
 
   get isExpired(): boolean {
@@ -14,6 +20,6 @@ export class AccessTokenWrapper {
   }
 
   get token(): string {
-    return this.#info.accessToken;
+    return this.#accessToken;
   }
 }

@@ -1,9 +1,6 @@
-import RestAuth from "./RestAuth";
-import NiceJSONDecoder from "../HTTPClient/NiceJSONDecoder";
-import NiceJSONEncoder from "../HTTPClient/NiceJSONEncoder";
-import ErrorHandlerMiddleware from "../HTTPClient/ErrorHandlerMiddleware";
-import HTTPClient from "../HTTPClient/HTTPClient";
-import Auth from "./Auth";
+import RestAuth from "../Rest/RestAuth";
+import Auth from "../Auth";
+import { ErrorHandlerMiddleware, HTTPClient, NiceJSONDecoder, NiceJSONEncoder } from "typescript-http-client";
 
 function buildAuth(baseUrl: string): Auth {
 

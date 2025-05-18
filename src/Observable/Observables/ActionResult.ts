@@ -1,5 +1,5 @@
 interface ActionResult<T> {
-  result: T;
+  result?: T;
   error?: Error;
 }
 

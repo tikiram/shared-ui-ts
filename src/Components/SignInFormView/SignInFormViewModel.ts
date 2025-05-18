@@ -1,6 +1,6 @@
 import Auth from "../../Auth/Auth";
-import observeAsyncAction from "../../Observable/observeAsyncAction";
-import { observeTyping } from "../../Observable/utils";
+import observeAsyncAction from "../../Observable/Observables/observeAsyncAction";
+import { observeTyping } from "../../Observable/React/utils";
 
 class SignInFormViewModel {
   #auth: Auth;

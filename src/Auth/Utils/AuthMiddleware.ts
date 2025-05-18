@@ -1,5 +1,5 @@
-import Auth from "./Auth";
-import Middleware, { NextFn } from "../HTTPClient/Middleware";
+import { Middleware, NextFn } from "typescript-http-client";
+import Auth from "../Auth";
 
 class AuthMiddleware implements Middleware {
   #auth: Auth;

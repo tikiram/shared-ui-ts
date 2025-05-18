@@ -1,8 +1,8 @@
 import { useContext, useRef } from "react";
-import Observable from "./Observable";
 import useTrackObservable from "./useTrackObservable";
 import ObservableStoreContext from "./ObservableStoreContext";
 import find from "./find";
+import Observable from "../Core/Observable";
 
 export function useSmartViewModel<T extends object>(
   c: new (...args: never) => T,
@@ -11,24 +11,24 @@ export function useSmartViewModel<T extends object>(
   const viewModel = useStoreFirstObjectOfType<T>(c);
   // TODO: refactor viewToken
   const internalViewToken = useRef(Symbol());
-  useTrackObservablesInObject(viewModel, viewToken || internalViewToken.current, c.name);
+  useTrackObservablesInObject(viewModel, c.name);
   return [viewModel, viewToken || internalViewToken.current];
 }
 
 export function useStoreViewModel<T extends object>(
-  c: new (...args: never) => T,
+  c: new (...args: never) => T
 ): T {
   const viewModel = useStoreFirstObjectOfType<T>(c);
 
   // We can create another hook useUntrackedViewModel so we can fully control
   // the where the observable is tracked with `useTrackObservable`
-  useTrackObservablesInObject(viewModel, undefined, c.name);
+  useTrackObservablesInObject(viewModel, c.name);
 
   return viewModel;
 }
 
 export function useStoreObservableOfType<T extends Observable<unknown>>(
-  c: new (...args: never) => T,
+  c: new (...args: never) => T
 ): T {
   const observable = useStoreFirstObjectOfType<T>(c);
   useTrackObservable(observable);
@@ -38,7 +38,7 @@ export function useStoreObservableOfType<T extends Observable<unknown>>(
 // TODO: projection would not be necessary with the smartSubscription strategy
 export function useStoreViewModelProjection<T extends object, B extends object>(
   c: new (...args: never) => T,
-  projectionFn: (viewModel: T) => B,
+  projectionFn: (viewModel: T) => B
 ): B {
   const viewModel = useStoreFirstObjectOfType<T>(c);
   const projection = projectionFn(viewModel);
@@ -47,7 +47,7 @@ export function useStoreViewModelProjection<T extends object, B extends object>(
 }
 
 export function useStoreFirstObjectOfType<T extends object>(
-  c: new (...args: never) => T,
+  c: new (...args: never) => T
 ): T {
   const observableStore = useContext(ObservableStoreContext);
 
@@ -65,8 +65,7 @@ export function useStoreFirstObjectOfType<T extends object>(
 
 function useTrackObservablesInObject(
   value: object,
-  nextToken?: symbol,
-  debugContainerName?: string,
+  debugContainerName?: string
 ): void {
   Object.entries(value)
     .filter(([, value]) => {
@@ -74,7 +73,7 @@ function useTrackObservablesInObject(
     })
     .forEach(([key, value]) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      useTrackObservable(value, nextToken, {
+      useTrackObservable(value, {
         name: key,
         containerName: debugContainerName ?? "",
       });

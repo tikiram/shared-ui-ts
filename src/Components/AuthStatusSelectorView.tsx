@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useStoreObservableOfType } from "../Observable/useViewModel";
+import { useStoreObservableOfType } from "../Observable/React/useViewModel";
 import Auth from "../Auth/Auth";
 import AuthStatus from "../Auth/AuthStatus";
 

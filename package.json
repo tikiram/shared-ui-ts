@@ -14,10 +14,6 @@
       "import": "./dist/observable.js",
       "types": "./dist/observable.d.ts"
     },
-    "./httpclient": {
-      "import": "./dist/httpclient.js",
-      "types": "./dist/httpclient.d.ts"
-    },
     "./components": {
       "import": "./dist/components.js",
       "types": "./dist/components.d.ts"
@@ -45,10 +41,10 @@
   "peerDependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@mui/lab": "^6.0.0-beta.19",
-    "@mui/material": "^6.1.6",
     "@fontsource/roboto": "^5.1.0",
     "@mui/icons-material": "^6.1.6",
+    "@mui/lab": "^6.0.0-beta.19",
+    "@mui/material": "^6.1.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -67,5 +63,8 @@
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5",
     "vite-plugin-dts": "^4.5.0"
+  },
+  "dependencies": {
+    "typescript-http-client": "github:tikiram/typescript-http-client"
   }
 }

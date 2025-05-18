@@ -12,3 +12,5 @@ export function handleSubmit(action: () => void) {
     action();
   };
 }
+
+export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));

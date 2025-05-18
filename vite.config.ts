@@ -24,8 +24,6 @@ export default defineConfig({
         // @ts-expect-error nodejs var
         observable: resolve(__dirname, "lib/observable.ts"),
         // @ts-expect-error nodejs var
-        httpclient: resolve(__dirname, "lib/httpclient.ts"),
-        // @ts-expect-error nodejs var
         components: resolve(__dirname, "lib/components.ts"),
         // @ts-expect-error nodejs var
         auth: resolve(__dirname, "lib/auth.ts"),

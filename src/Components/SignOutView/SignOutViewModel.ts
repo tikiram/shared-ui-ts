@@ -1,5 +1,5 @@
 import Auth from "../../Auth/Auth";
-import observeAsyncAction from "../../Observable/observeAsyncAction";
+import observeAsyncAction from "../../Observable/Observables/observeAsyncAction";
 
 class SignOutViewModel {
   #auth: Auth;

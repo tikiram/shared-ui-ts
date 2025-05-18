@@ -1,24 +1,19 @@
-import HTTPClient from "../HTTPClient/HTTPClient";
-import HTTPMethod from "../HTTPClient/HTTPMethod";
 import { MissingRefreshTokenError, UnauthorizedError } from "./RestAuthError";
-import { BadResponseError } from "../HTTPClient/ErrorHandlerMiddleware";
-import AccessTokenInfo from "./AccessTokenInfo";
+import Tokens from "./Tokens";
 import Credentials from "./Credentials";
+import { BadResponseError, HTTPClient, HTTPMethod } from "typescript-http-client";
 
-const SIGN_UP_PATH = "/auth/register";
-const TOKEN_PATH = "/auth/token";
-const SIGN_OUT_PATH = "/auth/logout";
+const SIGN_UP_PATH = "/c/v1/auth/register";
+const SIGN_IN_PATH = "/c/v1/auth/login";
+const REFRESH_PATH = "/b/v1/auth/refresh";
+const SIGN_OUT_PATH = "/b/v1/auth/logout";
 
 class RestAuth {
-  constructor(private readonly client: HTTPClient) {}
+  constructor(private readonly client: HTTPClient) { }
 
-  async getNewAccessToken(): Promise<AccessTokenInfo> {
-    const payload = {
-      grantType: "refresh_token",
-    };
-
+  async getNewAccessToken(): Promise<Tokens> {
     try {
-      return await this.client.request(HTTPMethod.Post, TOKEN_PATH, payload);
+      return await this.client.request(HTTPMethod.Post, REFRESH_PATH);
     } catch (error) {
       if (error instanceof BadResponseError && error.response.status === 401) {
         const reason = await tryGetReason(error.response);
@@ -36,14 +31,8 @@ class RestAuth {
     }
   }
 
-  async signIn(credentials: Credentials): Promise<AccessTokenInfo> {
-    const payload = {
-      username: credentials.email,
-      password: credentials.password,
-      grantType: "password",
-    };
-
-    return await this.client.request(HTTPMethod.Post, TOKEN_PATH, payload);
+  async signIn(credentials: Credentials): Promise<Tokens> {
+    return await this.client.request(HTTPMethod.Post, SIGN_IN_PATH, credentials);
     // TODO: handle expected errors
   }
 
@@ -51,13 +40,8 @@ class RestAuth {
     await this.client.requestEmptyResponse(HTTPMethod.Post, SIGN_OUT_PATH);
   }
 
-  async signUp(credentials: Credentials): Promise<AccessTokenInfo> {
-    const payload = {
-      username: credentials.email,
-      password: credentials.password,
-    };
-
-    return await this.client.request(HTTPMethod.Post, SIGN_UP_PATH, payload);
+  async signUp(credentials: Credentials): Promise<Tokens> {
+    return await this.client.request(HTTPMethod.Post, SIGN_UP_PATH, credentials);
     // TODO: handle expected errors
   }
 }
