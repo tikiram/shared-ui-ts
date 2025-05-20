@@ -1,19 +1,27 @@
-import { Stack, TextField } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
 import { useStoreViewModel } from "../../Observable/React/useViewModel";
 import { handleSubmit, sendText } from "../../Utils/uiUtils";
 import SignUpFormViewModel from "./SignUpFormViewModel";
-import ErrorMessage from "../ErrorMessage";
+// import ErrorMessage from "../ErrorMessage";
+
+import styled from '@emotion/styled'
+
+const Form = styled.form({
+  display: 'flex'
+})
+
+const TextInput = styled.input({
+  
+})
 
 function SignUpFormView() {
   const viewModel = useStoreViewModel(SignUpFormViewModel);
+  
+  const a = 333  ;
+
+
 
   return (
-    <Stack
-      component="form"
-      onSubmit={handleSubmit(viewModel.signUpButtonTapped.exec)}
-      spacing={2}
-    >
+    <Form onSubmit={handleSubmit(viewModel.signUpButtonTapped.exec)}>
       <TextField
         label="Email"
         variant="outlined"

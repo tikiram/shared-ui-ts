@@ -46,13 +46,10 @@ export default defineConfig({
       external: [
         "@emotion/react",
         "@emotion/styled",
-        "@fontsource/roboto",
-        "@mui/lab",
-        "@mui/material",
-        "@mui/icons-material",
         "react",
         "react/jsx-runtime", // TODO: why this is required?
         "react-dom",
+        "typescript-http-client"
       ],
     },
   },
